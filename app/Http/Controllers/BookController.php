@@ -30,7 +30,7 @@ class BookController extends Controller
             $records = collect($records)->map(function ($book) {
                 $book->comments_count = 0;
                 return $book;
-            });
+            })->{'sortBy' . ($request->sort_dir && $request->sort_dir == 'Asc' ? '' : 'Desc')}('' . $request->sort_field)->values();
             return response()->json([
                 'message' => 'success fetching books',
                 'data' => $records
